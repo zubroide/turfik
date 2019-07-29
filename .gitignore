@@ -1,0 +1,8 @@
+__pycache__
+.idea
+
+/venv
+pip3
+python3
+
+python.log
