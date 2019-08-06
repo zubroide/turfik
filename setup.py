@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="turfik",
-    version="0.0.1",
+    version="0.0.2",
     author="Nikolay Matyushenkov, Zubroid",
     author_email="mnvx@yandex.ru",
     description="Turfik is implementation of Turf.js library on Python",
