@@ -63,7 +63,7 @@ translatedPoint = turfik.transform_translate(point, 100, 90, {
 - [x] `destination`
 - [ ] `difference`
 - [ ] `dissolve`
-- [ ] `distance`
+- [x] `distance`
 - [ ] `ellipse`
 - [ ] `envelope`
 - [ ] `explode`
