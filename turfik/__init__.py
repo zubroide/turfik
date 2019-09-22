@@ -1,5 +1,6 @@
 from .centroid import *
 from .destination import *
+from .distance import *
 from .helpers import *
 from .invariant import *
 from .rhumb_bearing import *
