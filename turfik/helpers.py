@@ -73,7 +73,7 @@ def line_string(coordinates, properties=None, options: dict = None):
     """
     Creates a {@link Point} {@link Feature} from a Position
     """
-    if len(coordinates):
+    if len(coordinates) < 2:
         raise Exception('coordinates must be an array of two or more positions')
     if options is None:
         options = {}
