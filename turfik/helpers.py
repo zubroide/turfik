@@ -42,6 +42,19 @@ def feature(geom, properties: dict = None, options: dict = None):
     feat['geometry'] = geom
     return feat
 
+def feature_collection(features, options: dict = None):
+    if options is None:
+        options = {}
+    fc = {
+        'type': 'FeatureCollection',
+    }
+    if options.get('id') is not None:
+        fc['id'] = options.get('id')
+    if options.get('bbox'):
+        fc['bbox'] = options.get('bbox')
+        fc['features'] = features
+    return fc
+
 
 def point(coordinates, properties=None, options: dict = None):
     """
@@ -50,10 +63,54 @@ def point(coordinates, properties=None, options: dict = None):
     if options is None:
         options = {}
     geom = {
-        'type': "Point",
+        'type': 'Point',
         'coordinates': coordinates,
     }
     return feature(geom, properties, options)
+
+
+def line_string(coordinates, properties=None, options: dict = None):
+    """
+    Creates a {@link Point} {@link Feature} from a Position
+    """
+    if len(coordinates):
+        raise Exception('coordinates must be an array of two or more positions')
+    if options is None:
+        options = {}
+    geom = {
+        'type': 'LineString',
+        'coordinates': coordinates,
+    }
+    return feature(geom, properties, options)
+
+
+def polygon(coordinates, properties=None, options: dict = None):
+    if options is None:
+        options = {}
+    for ring in coordinates:
+        if len(ring) < 4:
+            raise Exception('Each LinearRing of a Polygon must have 4 or more Positions.')
+        for j in range(len(ring[-1])):
+            # Check if first point of Polygon contains two numbers
+            if ring[-1][j] != ring[0][j]:
+                raise Exception('First and last Position are not equivalent.')
+    geom = {
+        'type': 'Polygon',
+        'coordinates': coordinates,
+    }
+    return feature(geom, properties, coordinates)
+
+def geometry(type, coordinates, options: dict = None):
+    if options is None:
+        options = {}
+    if type == 'Point':
+        return point(coordinates)['geometry']
+    elif type == 'LineString':
+        return line_string(coordinates)['geometry']
+    elif type == 'Polygon':
+        return polygon(coordinates)['geometry']
+    else:
+        raise NotImplemented()
 
 
 def degrees_to_radians(degrees: float) -> float:
