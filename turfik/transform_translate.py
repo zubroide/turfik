@@ -34,7 +34,7 @@ def transform_translate(geojson, distance, direction, options):
     # Invert with negative distances
     if distance < 0:
         distance = -distance
-        direction = -direction
+        direction = direction + 180
 
     # Clone geojson to avoid side effects
     if mutate is None or not mutate:
